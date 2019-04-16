@@ -1,0 +1,22 @@
+{
+  "name": "chat-back",
+  "version": "1.0.0",
+  "description": "Chat back ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antonio06/chat-back.git"
+  },
+  "author": "Antonio Contreras Román",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/antonio06/chat-back/issues"
+  },
+  "homepage": "https://github.com/antonio06/chat-back#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
