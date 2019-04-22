@@ -7,8 +7,13 @@ app.get('/', (req, res) => {
 
 app.get('/yo', (req, res) => {
 	res.send('YO!');
-})
+});
 
-var server = app.listen(3000, () => {
+app.get('/:userName', (req, res) => {
+	const userName = req.params.userName;
+	res.send(`Hello, ${userName}`);
+});
+
+const server = app.listen(3000, () => {
 	console.log('Server running at http://localhost:' + server.address().port);
 });
