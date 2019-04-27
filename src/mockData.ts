@@ -1,6 +1,6 @@
 import { Conversation } from './conversation';
 
-const conversationList: Conversation [] = [
+export const conversationList: Conversation [] = [
 	{
 		id: 1,
 		name: 'Micke',
@@ -23,4 +23,4 @@ const conversationList: Conversation [] = [
 	},
 ]
 
-exports.conversationList = conversationList;
+//exports.conversationList = conversationList;

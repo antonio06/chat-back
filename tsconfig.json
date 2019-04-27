@@ -1,0 +1,68 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "allowJs": false,
+    "allowSyntheticDefaultImports": true,
+    "allowUnreachableCode": true,
+    "allowUnusedLabels": true,
+    "alwaysStrict": true,
+    "charset": "utf8",
+    "declaration": false,
+    "diagnostics": true,
+    "emitBOM": false,
+    "emitDecoratorMetadata": false,
+    "experimentalDecorators": false,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": false,
+    "inlineSourceMap": false,
+    "inlineSources": false,
+    "isolatedModules": false,
+    "jsx": "preserve",
+    "lib": [
+      "esnext"
+    ],
+    "listEmittedFiles": true,
+    "listFiles": true,
+    "locale": "es-es",
+    "maxNodeModuleJsDepth": 0,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "newLine": "LF",
+    "noEmit": false,
+    "noEmitHelpers": false,
+    "noEmitOnError": true,
+    "noFallthroughCasesInSwitch": false,
+    "noImplicitAny": false,
+    "noImplicitReturns": true,
+    "noImplicitThis": false,
+    "noImplicitUseStrict": false,
+    "noLib": false,
+    "noResolve": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "plugins": [
+      {
+        "name": "typescript-tslint-plugin"
+      }
+    ],
+    "preserveConstEnums": false,
+    "pretty": true,
+    "reactNamespace": "React",
+    "removeComments": true,
+    "skipDefaultLibCheck": false,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "stripInternal": false,
+    "suppressExcessPropertyErrors": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "target": "es6",
+    "traceResolution": false,
+    "watch": false
+  },
+  "exclude": [
+    "node_modules",
+    "src/**/*.spec.ts",
+    "src/**/*.spec.tsx"
+  ]
+}
