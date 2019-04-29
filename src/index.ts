@@ -2,11 +2,11 @@ const express = require('express');
 const app = express();
 import { conversationList } from './mockData';
 
-app.get('/', (res) => {
+app.get('/', (_req, res) => {
   res.json(conversationList);
 });
 
-app.get('/yo', (res) => {
+app.get('/yo', (_req, res) => {
   res.send('YO!');
 });
 
