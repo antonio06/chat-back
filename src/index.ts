@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 import { conversationList } from './mockData';
 
+const PORT = process.env.PORT || 3000;
+
 app.get('/', (_req, res) => {
   res.json(conversationList);
 });
@@ -15,6 +17,6 @@ app.get('/:userName', (req, res) => {
   res.send(`Hello, ${userName}`);
 });
 
-const server = app.listen(3000, () => {
-  console.log('Server running at http://localhost:' + server.address().port);
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
 });
