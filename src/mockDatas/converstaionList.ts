@@ -1,4 +1,4 @@
-import { Conversation } from './conversation';
+import { Conversation } from '../models';
 
 export const conversationList: Conversation [] = [
 	{
@@ -22,5 +22,3 @@ export const conversationList: Conversation [] = [
 		message: 'Hello Saara, for me this Friday its well.'
 	},
 ]
-
-//exports.conversationList = conversationList;
