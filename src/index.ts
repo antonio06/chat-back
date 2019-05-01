@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-import { conversationList, newUser } from './mockDatas';
+import { conversationList, newUser, userList } from './mockDatas';
 import { login } from './login';
 import { loginError, loginSuccess } from './models';
 import * as serverConstants from './constants';
@@ -15,10 +15,14 @@ app.get('/yo', (_req, res) => {
 
 app.get(serverConstants.routes.login, (_req, res) => {
   login(newUser).then((loginStatus) => {
-    loginStatus === true ?
-      res.status(loginSuccess.code).json(loginSuccess)
-      :
+    if (loginStatus === true) {
+      // Pending to manage server memory with users
+      res.status(loginSuccess.code).json(loginSuccess);
+      userList.push(newUser);
+      console.log(JSON.stringify(userList));
+    } else {
       res.status(loginError.code).json(loginError);
+    }
   })
 })
 
