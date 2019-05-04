@@ -12,7 +12,7 @@ app.get('/yo', (_req, res) => {
   res.send('YO!');
 });
 
-app.get(serverConstants.routes.login, (_req, res) => {
+app.get(serverConstants.routes.addUserToChat, (_req, res) => {
   addUsers(newUser) ?
   res.status(200).send('user-add-successfully') :
   res.status(400).send('user-add-error');
