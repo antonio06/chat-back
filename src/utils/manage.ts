@@ -3,7 +3,7 @@ import { usersComprobation } from './userUtils';
 
 const users: UserCredentials[] = [];
 
-export const addUsers = (newUser: UserCredentials): boolean => {
+export const addUsersToRoom = (newUser: UserCredentials): boolean => {
   let result = false;
 
   if (usersComprobation(newUser)) {

@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 import { conversationList, newUser } from './mockDatas';
-import { addUsers } from './utils';
+import { addUsersToRoom } from './utils';
 import * as serverConstants from './constants';
 
 app.get(serverConstants.routes.default, (_req, res) => {
@@ -13,7 +13,7 @@ app.get('/yo', (_req, res) => {
 });
 
 app.get(serverConstants.routes.addUserToChat, (_req, res) => {
-  addUsers(newUser) ?
+  addUsersToRoom(newUser) ?
   res.status(200).send('user-add-successfully') :
   res.status(400).send('user-add-error');
 })
