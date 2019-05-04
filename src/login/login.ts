@@ -6,5 +6,5 @@ export const login = (newUser: UserCredentials): Promise<boolean> => (
 );
 
 const existUser = (user: UserCredentials, newUser: UserCredentials) => {
-  return user.userName !== newUser.userName;
-}
+  return user.userName !== newUser.userName
+};
