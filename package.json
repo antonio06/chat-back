@@ -2,10 +2,10 @@
   "name": "chat-back",
   "version": "1.0.0",
   "description": "Chat back ",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "ts-node-dev src/index.ts",
-    "dev": "nodemon src/index.ts"
+    "start": "ts-node-dev src/app.ts",
+    "dev": "nodemon src/app.ts"
   },
   "repository": {
     "type": "git",
