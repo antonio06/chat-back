@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-import { conversationList, newUser } from './mockDatas';
+import { conversationList } from './mockDatas';
 import { addUsersToRoom } from './utils';
 import * as serverConstants from './constants';
 
@@ -13,10 +13,15 @@ app.get('/yo', (_req, res) => {
 });
 
 app.get(serverConstants.routes.addUserToChat, (_req, res) => {
-  addUsersToRoom(newUser) ?
-  res.status(200).send('user-add-successfully') :
-  res.status(400).send('user-add-error');
-})
+  addUsersToRoom(res.newUser)
+    .then(() => {
+      res.status(200).send('user-add-successfully');
+    })
+    .catch(() => {
+      res.status(400).send('user-add-error');
+    })
+});
+
 
 app.listen(serverConstants.PORT, () => {
   console.log(`Server running at ${serverConstants.routes.server}:${serverConstants.PORT}`);

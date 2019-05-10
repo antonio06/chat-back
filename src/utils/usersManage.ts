@@ -3,13 +3,12 @@ import { usersComprobation } from './userUtils';
 
 const users: UserCredentials[] = [];
 
-export const addUsersToRoom = (newUser: UserCredentials): boolean => {
-  let result = false;
+export const addUsersToRoom = (newUser: UserCredentials): Promise<boolean> => {
 
   if (usersComprobation(newUser)) {
     users.push(newUser);
-    result = true;
+    return Promise.resolve(true);
   }
 
-  return result;
+  return Promise.resolve(false);
 }

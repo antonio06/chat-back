@@ -1,2 +1,2 @@
 export * from './userUtils';
-export * from './manage'
+export * from './usersManage'
