@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 import { conversationList } from './mockDatas';
-import { addUsersToRoom, addConversation } from './utils';
+import * as business from './business';
 import * as serverConstants from './constants';
 
 app.get(serverConstants.routes.default, (_req, res) => {
@@ -12,8 +12,8 @@ app.get('/yo', (_req, res) => {
   res.send('YO!');
 });
 
-app.get(serverConstants.routes.addUserToChat, (_req, res) => {
-  addUsersToRoom(_req.params.newUser)
+app.set(serverConstants.routes.addUser, (_req, res) => {
+  business.addUsersToRoom(_req.params.newUser)
     .then(() => {
       res.status(200).send('user-add-successfully');
     })
@@ -22,13 +22,13 @@ app.get(serverConstants.routes.addUserToChat, (_req, res) => {
     })
 });
 
-app.get(serverConstants.routes.addConversation, (_req, res) => {
-  addConversation(_req.params.newConversation)
+app.set(serverConstants.routes.addConversation, (_req, res) => {
+  business.addConversation(_req.params.newConversation)
   .then((conversationList) => {
     res.json(conversationList);
   })
   .catch(() => {
-    res.status(400).send('converstaion-add-error');
+    res.status(400).send('conversation-add-error');
   })
 });
 
