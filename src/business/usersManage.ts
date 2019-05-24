@@ -3,11 +3,13 @@ import { usersComprobation } from './userUtils';
 
 const users: UserCredentials[] = [];
 
-export const addUsersToRoom = (newUser: UserCredentials): Promise<boolean> => {
-
-  if (usersComprobation(newUser)) {
-    users.push(newUser);
-    return Promise.resolve(true);
+export const addUsersToRoom = (newUser: UserCredentials | null): Promise<boolean> => {
+  if (usersComprobation(users, newUser)) {
+    if (newUser !== null) {
+      users.push(newUser);
+      return Promise.resolve(true);
+    }
+    return Promise.resolve(false);
   }
 
   return Promise.resolve(false);

@@ -1,10 +1,9 @@
-import { userList } from '../mockDatas';
 import { UserCredentials } from '../models';
 
-export const usersComprobation = (newUser: UserCredentials): boolean => (
+export const usersComprobation = (userList: UserCredentials[], newUser: UserCredentials | null): boolean => (
   userList.every((user) => existUser(user, newUser))
 );
 
-const existUser = (user: UserCredentials, newUser: UserCredentials) => (
-  user.userName !== newUser.userName
+const existUser = (user: UserCredentials, newUser: UserCredentials | null) => (
+  newUser !== null && user.userName !== newUser.userName
 );
