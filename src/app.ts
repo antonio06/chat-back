@@ -1,19 +1,9 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-import * as business from './business';
 import * as serverConstants from './constants';
 import * as controllers from './controllers';
 import * as mappers from './mappers';
-import { conversationList } from './mockDatas';
-
-app.get(serverConstants.routes.default, (_req, res) => {
-  res.json(conversationList);
-});
-
-app.get('/yo', (_req, res) => {
-  res.send('YO!');
-});
 
 const jsonParser = bodyParser.json({ extended: false });
 
@@ -26,16 +16,14 @@ app.post(serverConstants.routes.addUser, jsonParser, (req, res, _next) => {
   }
 });
 
-app.post(serverConstants.routes.addConversation, (_req, res) => {
-  business.addConversation(_req.params.newConversation)
-  .then((conversationList) => {
-    res.json(conversationList);
-  })
-  .catch(() => {
-    res.status(400).send('conversation-add-error');
-  })
+app.post(serverConstants.routes.addConversation, jsonParser, (req, res) => {
+  if (req.accepts('application/json')) {
+    const conversation = mappers.mapperToConversation(req.body.id, req.body.name, req.body.message);
+    controllers.addConversationController(conversation, res);
+  } else {
+    res.status(400).send('bad-formate-data');
+  }
 });
-
 
 app.listen(serverConstants.PORT, () => {
   console.log(`Server running at ${serverConstants.routes.server}:${serverConstants.PORT}`);
