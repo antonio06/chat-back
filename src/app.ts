@@ -1,10 +1,11 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-import { conversationList } from './mockDatas';
 import * as business from './business';
-import * as mappers from './mappers';
 import * as serverConstants from './constants';
+import * as controllers from './controllers';
+import * as mappers from './mappers';
+import { conversationList } from './mockDatas';
 
 app.get(serverConstants.routes.default, (_req, res) => {
   res.json(conversationList);
@@ -19,13 +20,7 @@ const jsonParser = bodyParser.json({ extended: false });
 app.post(serverConstants.routes.addUser, jsonParser, (req, res, _next) => {
   if (req.accepts('application/json')) {
     const userCredential = mappers.mapperToUserCredential(req.body.userName);
-    business.addUsersToRoom(userCredential)
-    .then(() => {
-      res.status(200).send('user-add-successfully');
-    })
-    .catch(() => {
-      res.status(400).send('user-add-error');
-    });
+    controllers.addUserController(userCredential, res);
   } else {
     res.status(400).send('bad-formate-data');
   }
