@@ -8,7 +8,7 @@ import * as mappers from './mappers';
 const jsonParser = bodyParser.json({ extended: false });
 
 app.post(serverConstants.routes.addUser, jsonParser, (req, res, _next) => {
-  if (req.accepts('application/json')) {
+  if (req.accepts('application/json') && req.method === 'POST') {
     const userCredential = mappers.mapperToUserCredential(req.body.userName);
     controllers.addUserController(userCredential, res);
   } else {
