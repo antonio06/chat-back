@@ -17,7 +17,7 @@ app.post(serverConstants.routes.addUser, jsonParser, (req, res, _next) => {
 });
 
 app.post(serverConstants.routes.addConversation, jsonParser, (req, res) => {
-  if (req.accepts('application/json')) {
+  if (req.accepts('application/json') && req.method === 'POST') {
     const conversation = mappers.mapperToConversation(req.body.id, req.body.name, req.body.message);
     controllers.addConversationController(conversation, res);
   } else {
