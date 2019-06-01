@@ -1,4 +1,5 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const app = express();
 const bodyParser = require('body-parser');
 import * as serverConstants from './constants';
@@ -7,10 +8,13 @@ import * as mappers from './mappers';
 
 const jsonParser = bodyParser.json({ extended: false });
 
+app.use(cookieParser());
+
 app.post(serverConstants.routes.addUser, jsonParser, (req, res, _next) => {
   if (req.accepts('application/json') && req.method === 'POST') {
     const userCredential = mappers.mapperToUserCredential(req.body.userName);
     controllers.addUserController(userCredential, res);
+    res.cookie('name', 'chat-cookie', { maxAge: 1800000 });
   } else {
     res.status(400).send('bad-formate-data');
   }
