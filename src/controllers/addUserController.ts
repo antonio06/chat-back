@@ -1,7 +1,8 @@
 import * as business from '../business';
 import { UserCredentials } from "../models";
+import { AddUserController } from './contracts';
 
-export const addUserController = (userCredential: UserCredentials | null, res) => {
+export const addUserController: AddUserController = (userCredential: UserCredentials | null, res: any) => {
   business.addUsersToRoom(userCredential)
     .then((result) => {
       if (result) {
