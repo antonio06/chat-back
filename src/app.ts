@@ -2,10 +2,10 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const app = express();
 const bodyParser = require('body-parser');
+import { Request, Response } from 'express-serve-static-core';
 import * as serverConstants from './constants';
 import * as controllers from './controllers';
 import * as mappers from './mappers';
-import { Request, Response } from 'express-serve-static-core';
 
 const jsonParser = bodyParser.json({ extended: false });
 

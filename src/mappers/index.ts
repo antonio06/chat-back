@@ -1,2 +1,3 @@
-export * from './mapperToUserCredential';
 export * from './mapperToConversation';
+export * from './mapperToUserCredential';
+

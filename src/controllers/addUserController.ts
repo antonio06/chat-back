@@ -1,7 +1,7 @@
+import { Response } from 'express-serve-static-core';
 import * as business from '../business';
 import { UserCredentials } from "../models";
 import { AddUserController } from './contracts';
-import { Response } from 'express-serve-static-core';
 
 export const addUserController: AddUserController = (userCredential: UserCredentials | null, res: Response) => {
   business.addUsersToRoom(userCredential)
