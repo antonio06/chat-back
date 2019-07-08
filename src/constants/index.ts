@@ -1,3 +1,3 @@
 export * from './routes';
-export * from './serverUtils';
+export * from './server';
 

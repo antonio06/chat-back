@@ -12,7 +12,7 @@ const jsonParser = bodyParser.json({ extended: false });
 app.use(cookieParser());
 
 app.post(routes.addUser, jsonParser, (req: Request, res: Response, _next) => {
-  if (req.accepts('application/json') && req.method === 'POST') {
+  if (req.accepts('application/json') && req.method === server.protocols.post) {
     const userCredential = mappers.mapperToUserCredential(req.body.userName);
     controllers.addUserController(userCredential, res);
     res.cookie('name', 'chat-cookie', { maxAge: 1800000 });
@@ -22,7 +22,7 @@ app.post(routes.addUser, jsonParser, (req: Request, res: Response, _next) => {
 });
 
 app.post(routes.addConversation, jsonParser, (req: Request, res: Response) => {
-  if (req.accepts('application/json') && req.method === 'POST') {
+  if (req.accepts('application/json') && req.method === server.protocols.post) {
     const conversation = mappers.mapperToConversation(req.body.id, req.body.name, req.body.message);
     controllers.addConversationController(conversation, res);
   } else {
@@ -31,5 +31,5 @@ app.post(routes.addConversation, jsonParser, (req: Request, res: Response) => {
 });
 
 app.listen(server.port, () => {
-  console.log(`Server running at ${server}:${server.location}`);
+  console.log(`Server running at ${server.port}:${server.location}`);
 });
