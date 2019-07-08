@@ -6,12 +6,13 @@ import { Request, Response } from 'express-serve-static-core';
 import * as serverConstants from './constants';
 import * as controllers from './controllers';
 import * as mappers from './mappers';
+import { routes, server } from './constants';
 
 const jsonParser = bodyParser.json({ extended: false });
 
 app.use(cookieParser());
 
-app.post(serverConstants.routes.addUser, jsonParser, (req: Request, res: Response, _next) => {
+app.post(routes.addUser, jsonParser, (req: Request, res: Response, _next) => {
   if (req.accepts('application/json') && req.method === 'POST') {
     const userCredential = mappers.mapperToUserCredential(req.body.userName);
     controllers.addUserController(userCredential, res);
@@ -21,7 +22,7 @@ app.post(serverConstants.routes.addUser, jsonParser, (req: Request, res: Respons
   }
 });
 
-app.post(serverConstants.routes.addConversation, jsonParser, (req: Request, res: Response) => {
+app.post(routes.addConversation, jsonParser, (req: Request, res: Response) => {
   if (req.accepts('application/json') && req.method === 'POST') {
     const conversation = mappers.mapperToConversation(req.body.id, req.body.name, req.body.message);
     controllers.addConversationController(conversation, res);
@@ -30,6 +31,6 @@ app.post(serverConstants.routes.addConversation, jsonParser, (req: Request, res:
   }
 });
 
-app.listen(serverConstants.PORT, () => {
-  console.log(`Server running at ${serverConstants.routes.server}:${serverConstants.PORT}`);
+app.listen(server.port, () => {
+  console.log(`Server running at ${server}:${server.location}`);
 });
