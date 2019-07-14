@@ -1,12 +1,12 @@
 import * as express from 'express';
 const app = express();
-const bodyParser = require('body-parser');
+import * as bodyParser from 'body-parser';
 import { Request, Response } from 'express-serve-static-core';
 import { routes, server } from './constants';
 import * as controllers from './controllers';
 import * as mappers from './mappers';
 
-const jsonParser = bodyParser.json({ extended: false });
+const jsonParser = bodyParser.json();
 
 app.post(routes.addUser, jsonParser, (req: Request, res: Response, _next) => {
   if (req.accepts('application/json') && req.method === server.protocols.post) {
