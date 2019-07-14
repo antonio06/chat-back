@@ -1,10 +1,10 @@
-import * as express from 'express';
-const app = express();
 import * as bodyParser from 'body-parser';
+import * as express from 'express';
 import { Request, Response } from 'express-serve-static-core';
 import { routes, server } from './constants';
 import * as controllers from './controllers';
 import * as mappers from './mappers';
+const app = express();
 
 app.use(bodyParser.json());
 
@@ -17,10 +17,10 @@ app.post(routes.addUser, (req: Request, res: Response, _next) => {
   }
 });
 
-app.post(routes.addConversation, (req: Request, res: Response) => {
+app.post(routes.addMessage, (req: Request, res: Response) => {
   if (req.accepts('application/json') && req.method === server.protocols.post) {
     const conversation = mappers.mapperToConversation(req.body.id, req.body.name, req.body.message);
-    controllers.addConversationController(conversation, res);
+    controllers.conversationController.addMessage(conversation, res);
   } else {
     res.status(400).json('bad-formate-data');
   }

@@ -1,3 +1,3 @@
-export * from './addConversationController';
-export * from './addUserController';
+export * from '../conversation/controller';
+export * from '../users/user.controller';
 

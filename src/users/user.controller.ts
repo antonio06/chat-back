@@ -1,9 +1,8 @@
 import { Response } from 'express-serve-static-core';
 import * as business from '../business';
-import { UserCredentials } from "../models";
-import { AddUserController } from './contracts';
+import { User } from "../models";
 
-export const addUserController: AddUserController = (userCredential: UserCredentials | null, res: Response) => {
+export const addUserController = (userCredential: User | null, res: Response) => {
   business.addUsersToRoom(userCredential)
     .then((result) => {
       if (result) {
