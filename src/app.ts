@@ -6,9 +6,9 @@ import { routes, server } from './constants';
 import * as controllers from './controllers';
 import * as mappers from './mappers';
 
-const jsonParser = bodyParser.json();
+app.use(bodyParser.json());
 
-app.post(routes.addUser, jsonParser, (req: Request, res: Response, _next) => {
+app.post(routes.addUser, (req: Request, res: Response, _next) => {
   if (req.accepts('application/json') && req.method === server.protocols.post) {
     const userCredential = mappers.mapperToUserCredential(req.body.userName);
     controllers.addUserController(userCredential, res);
@@ -17,7 +17,7 @@ app.post(routes.addUser, jsonParser, (req: Request, res: Response, _next) => {
   }
 });
 
-app.post(routes.addConversation, jsonParser, (req: Request, res: Response) => {
+app.post(routes.addConversation, (req: Request, res: Response) => {
   if (req.accepts('application/json') && req.method === server.protocols.post) {
     const conversation = mappers.mapperToConversation(req.body.id, req.body.name, req.body.message);
     controllers.addConversationController(conversation, res);
