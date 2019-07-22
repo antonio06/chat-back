@@ -17,7 +17,7 @@ const userNameExist = (userName: string): boolean => (
   users.every((user) => user.userName !== userName)
 );
 
-export const userService = {
+export const service = {
   addUser,
   userNameExist
 }
