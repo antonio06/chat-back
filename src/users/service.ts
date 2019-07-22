@@ -5,12 +5,12 @@ const users: User[] = [];
 
 const addUser = async (userName: string): Promise<void> => {
   const user = createUser(userName);
-  users.push(user)
-}
+  users.push(user);
+};
 
 const createUser = (userName: string): User => ({
   id: v4(),
-  userName
+  userName,
 });
 
 const userNameExist = (userName: string): boolean => (
@@ -19,5 +19,5 @@ const userNameExist = (userName: string): boolean => (
 
 export const service = {
   addUser,
-  userNameExist
-}
+  userNameExist,
+};

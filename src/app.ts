@@ -15,6 +15,6 @@ app.post(routes.addMessage, conversationController.addMessage);
 app.use(httpErrors());
 
 app.listen(server.port, () => {
-  console.log(`Server running at ${server.port}:${server.location}`);
+  // tslint:disable-next-line: no-console
+  console.log(`Server running at ${server.location}:${server.port}`);
 });
-

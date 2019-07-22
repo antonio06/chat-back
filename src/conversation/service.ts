@@ -9,13 +9,13 @@ const addMessage = async (messageParams: MessageParams): Promise<Message> => {
   conversation.push(message);
 
   return message;
-}
+};
 
 const createMessage = (messageParams: MessageParams): Message => ({
   ...messageParams,
   id: v4(),
-})
+});
 
 export const service = {
-  addMessage
+  addMessage,
 };

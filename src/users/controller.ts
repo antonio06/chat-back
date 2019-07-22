@@ -16,8 +16,8 @@ const addUser: RequestHandler = async (req, res, next) => {
 
   const result = await service.addUser(userName);
   res.status(status.CREATED).json(result);
-}
+};
 
 export const userController = {
-  addUser
-}
+  addUser,
+};
