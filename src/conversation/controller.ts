@@ -1,9 +1,9 @@
-import { NextFunction, Request, Response } from 'express';
+import { RequestHandler } from 'express';
 import * as createError from 'http-errors';
 import { getMessageFromBody } from './mappers';
 import { service } from './service';
 
-const addMessage = async (req: Request, res: Response, next: NextFunction) => {
+const addMessage: RequestHandler = async (req, res, next) => {
   const messageParams = getMessageFromBody(req.body)
   if (messageParams) {
     const message = await service.addMessage(messageParams);
