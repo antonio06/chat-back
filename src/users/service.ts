@@ -3,9 +3,11 @@ import { User } from '../models';
 
 const users: User[] = [];
 
-const addUser = async (userName: string): Promise<void> => {
+const addUser = async (userName: string): Promise<User> => {
   const user = createUser(userName);
   users.push(user);
+
+  return user;
 };
 
 const createUser = (userName: string): User => ({
@@ -14,7 +16,7 @@ const createUser = (userName: string): User => ({
 });
 
 const userNameExist = (userName: string): boolean => (
-  users.every((user) => user.userName !== userName)
+  users.some((user) => user.userName === userName)
 );
 
 export const service = {

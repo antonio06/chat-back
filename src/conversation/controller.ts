@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express';
 import * as createError from 'http-errors';
-import status from 'http-status';
+import * as status from 'http-status';
 import { getMessageFromBody } from './mappers';
 import { service } from './service';
 

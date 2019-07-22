@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express';
 import * as createError from 'http-errors';
-import status from 'http-status';
+import * as status from 'http-status';
 import { getUserNameFromBody } from './mappers';
 import { service } from './service';
 
@@ -11,7 +11,7 @@ const addUser: RequestHandler = async (req, res, next) => {
   }
 
   if (service.userNameExist(userName)) {
-    return next(createError(status.UNPROCESSABLE_ENTITY, 'user-exited-already'));
+    return next(createError(status.UNPROCESSABLE_ENTITY, 'user-already-exists'));
   }
 
   const result = await service.addUser(userName);
