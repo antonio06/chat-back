@@ -15,8 +15,9 @@ app.post(routes.addUser, userController.addUser);
 app.post(routes.addMessage, conversationController.addMessage);
 
 io.on('connection', (socket) => {
+  socket.broadcast.emit('user connected');
   socket.on('disconnect', () => {
-    io.emit('user disconect');
+    io.emit('user disconnect');
   });
 });
 
