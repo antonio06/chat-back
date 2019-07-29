@@ -1,25 +1,20 @@
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
-import { routes, server } from './constants';
-import { conversationController } from './conversation';
-import { userController } from './users';
 import httpErrors from 'http-errors-express';
 import * as socketIO from 'socket.io';
+import { events, routes, server } from './constants';
+import { conversationController } from './conversation';
+import { userController } from './users';
 const app = express();
 const io = socketIO(8080);
 
 app.use(bodyParser.json());
 
-app.post(routes.addUser, userController.addUser);
+// App.post(routes.addUser, userController.addUser);
 
 app.post(routes.addMessage, conversationController.addMessage);
 
-io.on('connection', (socket) => {
-  socket.broadcast.emit('user connected');
-  socket.on('disconnect', () => {
-    io.emit('user disconnect');
-  });
-});
+io.on(events.connection, userController.addUser);
 
 app.use(httpErrors());
 
