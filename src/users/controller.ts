@@ -1,21 +1,24 @@
-import { RequestHandler } from 'express';
 import * as createError from 'http-errors';
 import * as status from 'http-status';
+import { Socket } from 'socket.io';
 import { getUserNameFromBody } from './mappers';
 import { service } from './service';
 
-const addUser: RequestHandler = async (req, res, next) => {
-  const userName = getUserNameFromBody(req.body);
-  if (!userName) {
-    return next(createError(status.BAD_REQUEST, 'not-valid-user-name'));
-  }
+const addUser = (socket: Socket) => {
+  socket.emit('connect:user', (userName: string) => {
+    const userNameRawData = getUserNameFromBody(userName);
+    if (!userNameRawData) {
+      socket.broadcast.emit('user-error', createError(status.BAD_REQUEST, 'not-valid-user-name'));
+    }
 
-  if (service.userNameExist(userName)) {
-    return next(createError(status.UNPROCESSABLE_ENTITY, 'user-already-exists'));
-  }
+    if (service.userNameExist(userNameRawData)) {
+      socket.broadcast.emit('user-error', createError(status.UNPROCESSABLE_ENTITY, 'user-already-exists'));
+    }
 
-  const result = await service.addUser(userName);
-  res.status(status.CREATED).json(result);
+    const result = service.addUser(userNameRawData);
+
+    socket.broadcast.emit('user-connected', result);
+  });
 };
 
 export const userController = {
