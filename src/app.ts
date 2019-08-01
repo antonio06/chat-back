@@ -10,8 +10,6 @@ const io = socketIO(8080);
 
 app.use(bodyParser.json());
 
-// App.post(routes.addUser, userController.addUser);
-
 app.post(routes.addMessage, conversationController.addMessage);
 
 io.on(events.connection, userController.addUser);
