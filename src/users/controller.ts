@@ -9,11 +9,11 @@ const addUser = (socket: Socket) => {
   socket.emit(events.loggedUser, (userName: string) => {
     const userNameRawData = getUserNameFromBody(userName);
     if (!userNameRawData) {
-      socket.broadcast.emit('user-error', createError(status.BAD_REQUEST, 'not-valid-user-name'));
+      socket.broadcast.emit(events.userError, createError(status.BAD_REQUEST, 'not-valid-user-name'));
     }
 
     if (service.userNameExist(userNameRawData)) {
-      socket.broadcast.emit('user-error', createError(status.UNPROCESSABLE_ENTITY, 'user-already-exists'));
+      socket.broadcast.emit(events.userError, createError(status.UNPROCESSABLE_ENTITY, 'user-already-exists'));
     }
 
     const result = service.addUser(userNameRawData);
