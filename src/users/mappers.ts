@@ -1,9 +1,9 @@
 export const getUserNameFromBody = (body: any): string | null => {
-  const userName = getString(body.userName);
+  return getString(body.userName);
+};
 
-  return (userName) ?
-    userName :
-    null;
+export const getUserIdFromQuery = (query: any): string | null => {
+  return getString(query.userId);
 };
 
 const getString = (str: any): string | null => (
