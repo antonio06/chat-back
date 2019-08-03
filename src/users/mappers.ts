@@ -1,10 +1,11 @@
-export const getUserNameFromBody = (body: any): string | null => {
-  return getString(body.userName);
+
+const getObjectPropertyBy = <T extends 'userName' | 'userId'>(property: T) => (obj: any) => {
+  return getString(obj[property]);
 };
 
-export const getUserIdFromQuery = (query: any): string | null => {
-  return getString(query.userId);
-};
+export const getUserNameFromBody = getObjectPropertyBy('userName');
+
+export const getUserIdFromQuery = getObjectPropertyBy('userId');
 
 const getString = (str: any): string | null => (
   isValidString(str) ? str : null
