@@ -1,8 +1,10 @@
+import { MessageParams } from '../models';
+
 const getUserPropertyBy = <T extends 'userName' | 'userId'>(property: T) => (obj: any) => {
   return getString(obj[property]);
 };
 
-export const getMessagePropertyBy = (obj: any) => {
+export const getMessagePropertyBy = (obj: any): MessageParams | null => {
   const property = {
     userId: 'userId',
     text: 'text',
@@ -11,7 +13,9 @@ export const getMessagePropertyBy = (obj: any) => {
   const userId = getString(obj[property.userId]);
   const text = getString(obj[property.text]);
 
-  return { userId, text };
+  return (userId && text) ?
+    { userId, text } :
+    null;
 };
 
 export const getUserNameFromBody = getUserPropertyBy('userName');
