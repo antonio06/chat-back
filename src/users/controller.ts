@@ -1,6 +1,6 @@
 import * as createError from 'http-errors';
 import * as status from 'http-status';
-import { getUserNameFromBody } from './mappers';
+import { getUserNameFromBody } from '../utils';
 import { service } from './service';
 import { RequestHandler } from 'express';
 
