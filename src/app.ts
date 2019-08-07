@@ -24,7 +24,10 @@ io.use((socket, next) => {
 
 io.on(socketEvents.connection, (socket: Socket) => {
   const userName = service.getUserNameByUserId(socket.handshake.query.userId);
-  socket.broadcast.emit(`${userName} ${socketEvents.loggedUser}`);
+
+  if (userName !== undefined) {
+    socket.broadcast.emit(`${userName} ${socketEvents.loggedUser}`);
+  }
 });
 
 app.use(httpErrors());

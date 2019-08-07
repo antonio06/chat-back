@@ -19,11 +19,8 @@ const userExistBy = <T extends keyof User>(property: T) => (value: User[T]): boo
   users.some((user) => user[property] === value)
 );
 
-const getUserNameByUserId = (userId: string): string => {
-  const filteredUser = users.find((user) => user.id === userId);
-
-  return filteredUser !== undefined ?
-  filteredUser.userName : '';
+const getUserNameByUserId = (userId: string): User | undefined => {
+  return users.find((user) => user.id === userId);
 };
 
 const userNameExist = userExistBy('userName');
