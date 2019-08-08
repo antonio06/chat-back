@@ -23,10 +23,10 @@ io.use((socket, next) => {
 });
 
 io.on(socketEvents.connection, (socket: Socket) => {
-  const userName = service.getUserNameByUserId(socket.handshake.query.userId);
+  const user = service.getUserByUserId(socket.handshake.query.userId);
 
-  if (userName !== undefined) {
-    socket.broadcast.emit(`${userName} ${socketEvents.loggedUser}`);
+  if (user) {
+    socket.broadcast.emit(`${socketEvents.loggedUser}`, user);
   }
 });
 
