@@ -1,4 +1,4 @@
-import { RequestHandler, NextFunction } from 'express';
+import { NextFunction } from 'express';
 import * as createError from 'http-errors';
 import * as status from 'http-status';
 import { getMessagePropertyBy } from '../utils';
