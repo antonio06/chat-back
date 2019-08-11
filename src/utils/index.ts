@@ -1,1 +1,1 @@
-export * from './getObjectsProperty';
+export * from './users';

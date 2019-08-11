@@ -26,7 +26,16 @@ io.on(socketEvents.connection, (socket: Socket) => {
   const user = service.getUserByUserId(socket.handshake.query.userId);
 
   if (user) {
-    socket.broadcast.emit(`${socketEvents.loggedUser}`, user);
+    socket.broadcast.emit(socketEvents.loggedUser, user);
+  }
+});
+
+io.on(socketEvents.addMessage, (socket: Socket, data: any) => {
+  const message = conversationController.addMessage(data);
+  const user = service.getUserByUserId(socket.handshake.query.userId);
+
+  if (message && user) {
+    socket.broadcast.emit(socketEvents.sendMessage, message);
   }
 });
 

@@ -1,6 +1,7 @@
 export const socketEvents = {
   connection: 'connection',
   disconnect: 'disconnect',
-  loggedUser: 'logged:user',
-  userError: 'user:Error',
+  loggedUser: 'loggedUser',
+  addMessage: 'addMessage',
+  sendMessage: 'sendMessage',
 };
