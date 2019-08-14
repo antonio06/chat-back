@@ -2,7 +2,6 @@ import * as bodyParser from 'body-parser';
 import * as express from 'express';
 import httpErrors from 'http-errors-express';
 import * as socketIO from 'socket.io';
-import { Socket } from 'socket.io';
 import { routes, server, socketEvents } from './constants';
 import { conversationController } from './conversation';
 import { service, userController } from './users';
@@ -13,8 +12,6 @@ app.use(bodyParser.json());
 
 app.post(routes.addUser, userController.addUser);
 
-app.post(routes.addMessage, conversationController.addMessage);
-
 io.use((socket, next) => {
   const { userId } = socket.handshake.query;
   if (service.userIdExist(userId)) {
@@ -22,13 +19,7 @@ io.use((socket, next) => {
   }
 });
 
-io.on(socketEvents.connection, (socket: Socket) => {
-  const user = service.getUserByUserId(socket.handshake.query.userId);
-
-  if (user) {
-    socket.broadcast.emit(socketEvents.loggedUser, user);
-  }
-});
+io.on(socketEvents.connection, userController.onUserLogged);
 
 io.on(socketEvents.addMessage, conversationController.addMessage);
 

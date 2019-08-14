@@ -3,6 +3,8 @@ import * as status from 'http-status';
 import { getUserNameFromBody } from '../utils';
 import { service } from './service';
 import { RequestHandler } from 'express';
+import { Socket } from 'socket.io';
+import { socketEvents } from '../constants/socketEvents';
 
 const addUser: RequestHandler = async (req, res, next) => {
   const userName = getUserNameFromBody(req.body);
@@ -19,6 +21,15 @@ const addUser: RequestHandler = async (req, res, next) => {
   res.status(status.OK).json(result);
 };
 
+const onUserLogged = (socket: Socket) => {
+  const user = service.getUserByUserId(socket.handshake.query.userId);
+
+  if (user) {
+    socket.broadcast.emit(socketEvents.loggedUser, user);
+  }
+};
+
 export const userController = {
   addUser,
+  onUserLogged,
 };
