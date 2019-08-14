@@ -3,15 +3,16 @@ import * as status from 'http-status';
 import { getMessagePropertyBy } from '../utils';
 import { service } from './service';
 import { Socket } from 'socket.io';
+import { socketEvents } from '../constants/socketEvents';
 
 const addMessage = async (socket: Socket, data: any) => {
   const messageParams = getMessagePropertyBy(data);
   if (!messageParams) {
-    socket.broadcast.emit('errorAddMessage', createError(status.BAD_REQUEST, 'conversation-add-error'));
+    socket.broadcast.emit(socketEvents.errorAddMessage, createError(status.BAD_REQUEST, 'conversation-add-error'));
   } else {
     const message = await service.addMessage(messageParams);
 
-    socket.broadcast.emit('successAddMessage', message);
+    socket.broadcast.emit(socketEvents.successAddMessage, message);
   }
 };
 

@@ -4,4 +4,6 @@ export const socketEvents = {
   loggedUser: 'loggedUser',
   addMessage: 'addMessage',
   sendMessage: 'sendMessage',
+  errorAddMessage: 'errorAddMessage',
+  successAddMessage: 'successAddMessage',
 };
