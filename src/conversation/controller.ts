@@ -2,7 +2,7 @@ import * as createError from 'http-errors';
 import * as status from 'http-status';
 import { Socket } from 'socket.io';
 import { socketEvents } from '../constants/socketEvents';
-import { getMessagePropertyBy } from '../utils';
+import { getMessagePropertyBy } from './utils';
 import { service } from './service';
 
 const addMessage = async (socket: Socket, data: any) => {
