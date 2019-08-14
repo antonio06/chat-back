@@ -1,8 +1,10 @@
-import { RequestHandler } from 'express';
 import * as createError from 'http-errors';
 import * as status from 'http-status';
-import { getUserNameFromBody } from './mappers';
+import { getUserNameFromBody } from '../utils';
 import { service } from './service';
+import { RequestHandler } from 'express';
+import { Socket } from 'socket.io';
+import { socketEvents } from '../constants/socketEvents';
 
 const addUser: RequestHandler = async (req, res, next) => {
   const userName = getUserNameFromBody(req.body);
@@ -10,14 +12,24 @@ const addUser: RequestHandler = async (req, res, next) => {
     return next(createError(status.BAD_REQUEST, 'not-valid-user-name'));
   }
 
-  if (service.userNameExist(userName)) {
+  if (await service.userNameExist(userName)) {
     return next(createError(status.UNPROCESSABLE_ENTITY, 'user-already-exists'));
   }
 
-  const result = await service.addUser(userName);
-  res.status(status.CREATED).json(result);
+  const result = service.addUser(userName);
+
+  res.status(status.OK).json(result);
+};
+
+const onUserLogged = async (socket: Socket) => {
+  const user = await service.getUserByUserId(socket.handshake.query.userId);
+
+  if (user) {
+    socket.broadcast.emit(socketEvents.loggedUser, user);
+  }
 };
 
 export const userController = {
   addUser,
+  onUserLogged,
 };

@@ -1,16 +1,27 @@
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
-import { routes, server } from './constants';
-import { conversationController } from './conversation';
-import { userController } from './users';
 import httpErrors from 'http-errors-express';
+import * as socketIO from 'socket.io';
+import { routes, server, socketEvents } from './constants';
+import { conversationController } from './conversation';
+import { service, userController } from './users';
 const app = express();
+const io = socketIO(8080);
 
 app.use(bodyParser.json());
 
 app.post(routes.addUser, userController.addUser);
 
-app.post(routes.addMessage, conversationController.addMessage);
+io.use(async (socket, next) => {
+  const { userId } = socket.handshake.query;
+  if (await service.userIdExist(userId)) {
+    return next();
+  }
+});
+
+io.on(socketEvents.connection, userController.onUserLogged);
+
+io.on(socketEvents.addMessage, conversationController.addMessage);
 
 app.use(httpErrors());
 
