@@ -12,9 +12,9 @@ app.use(bodyParser.json());
 
 app.post(routes.addUser, userController.addUser);
 
-io.use((socket, next) => {
+io.use(async (socket, next) => {
   const { userId } = socket.handshake.query;
-  if (service.userIdExist(userId)) {
+  if (await service.userIdExist(userId)) {
     return next();
   }
 });

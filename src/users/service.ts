@@ -15,14 +15,14 @@ const createUser = (userName: string): User => ({
     userName,
 });
 
-const userExistBy = <T extends keyof User>(property: T) => (value: User[T]): boolean => (
+const userExistBy = <T extends keyof User>(property: T) => async (value: User[T]): Promise<boolean> => (
   users.some((user) => user[property] === value)
 );
 
-const getUserByUserId = (userId: string): User | null => {
+const getUserByUserId = async (userId: string): Promise<User | null> => {
   const filteredUser = users.find((user) => user.id === userId);
 
-  return filteredUser !== undefined ? filteredUser : null;
+  return filteredUser || null;
 };
 
 const userNameExist = userExistBy('userName');

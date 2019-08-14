@@ -12,7 +12,7 @@ const addUser: RequestHandler = async (req, res, next) => {
     return next(createError(status.BAD_REQUEST, 'not-valid-user-name'));
   }
 
-  if (service.userNameExist(userName)) {
+  if (await service.userNameExist(userName)) {
     return next(createError(status.UNPROCESSABLE_ENTITY, 'user-already-exists'));
   }
 
@@ -21,8 +21,8 @@ const addUser: RequestHandler = async (req, res, next) => {
   res.status(status.OK).json(result);
 };
 
-const onUserLogged = (socket: Socket) => {
-  const user = service.getUserByUserId(socket.handshake.query.userId);
+const onUserLogged = async (socket: Socket) => {
+  const user = await service.getUserByUserId(socket.handshake.query.userId);
 
   if (user) {
     socket.broadcast.emit(socketEvents.loggedUser, user);
