@@ -11,7 +11,6 @@ const addMessage = async (socket: Socket, data: any) => {
     socket.broadcast.emit(socketEvents.errorAddMessage, createError(status.BAD_REQUEST, 'conversation-add-error'));
   } else {
     const message = await service.addMessage(messageParams);
-
     socket.broadcast.emit(socketEvents.successAddMessage, message);
   }
 };
