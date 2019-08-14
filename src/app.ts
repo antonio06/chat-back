@@ -30,14 +30,7 @@ io.on(socketEvents.connection, (socket: Socket) => {
   }
 });
 
-io.on(socketEvents.addMessage, (socket: Socket, data: any) => {
-  const message = conversationController.addMessage(data);
-  const user = service.getUserByUserId(socket.handshake.query.userId);
-
-  if (message && user) {
-    socket.broadcast.emit(socketEvents.sendMessage, message);
-  }
-});
+io.on(socketEvents.addMessage, conversationController.addMessage);
 
 app.use(httpErrors());
 

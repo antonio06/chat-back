@@ -1,19 +1,18 @@
-import { NextFunction } from 'express';
 import * as createError from 'http-errors';
 import * as status from 'http-status';
 import { getMessagePropertyBy } from '../utils';
 import { service } from './service';
+import { Socket } from 'socket.io';
 
-const addMessage = (next: NextFunction) => async (data: any) =>  {
+const addMessage = async (socket: Socket, data: any) => {
   const messageParams = getMessagePropertyBy(data);
   if (!messageParams) {
-    return next(createError(status.BAD_REQUEST, 'conversation-add-error'));
+    socket.broadcast.emit('errorAddMessage', createError(status.BAD_REQUEST, 'conversation-add-error'));
+  } else {
+    const message = await service.addMessage(messageParams);
+
+    socket.broadcast.emit('successAddMessage', message);
   }
-
-  return await service.addMessage(messageParams);
-  // Const message = await service.addMessage(messageParams);
-
-  // Res.status(status.CREATED).json(message);
 };
 
 export const conversationController = {
