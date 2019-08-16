@@ -16,7 +16,7 @@ const addUser: RequestHandler = async (req, res, next) => {
     return next(createError(status.UNPROCESSABLE_ENTITY, 'user-already-exists'));
   }
 
-  const result = service.addUser(userName);
+  const result = await service.addUser(userName);
 
   res.status(status.OK).json(result);
 };
