@@ -1,4 +1,6 @@
 import * as bodyParser from 'body-parser';
+import * as cors from 'cors';
+import * as morgan from 'morgan';
 import * as express from 'express';
 import httpErrors from 'http-errors-express';
 import * as socketIO from 'socket.io';
@@ -8,6 +10,8 @@ import { service, userController } from './users';
 const app = express();
 const io = socketIO(8080);
 
+app.use(cors());
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 
 app.post(routes.addUser, userController.addUser);
