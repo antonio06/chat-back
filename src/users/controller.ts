@@ -9,7 +9,7 @@ import { socketEvents } from '../constants/socketEvents';
 const addUser: RequestHandler = async (req, res, next) => {
   const userName = getUserNameFromBody(req.body);
   if (!userName) {
-    return next(createError(status.BAD_REQUEST, 'not-valid-user-name'));
+    return next(createError(status.BAD_REQUEST, 'not-valid-username'));
   }
 
   if (await service.userNameExist(userName)) {
