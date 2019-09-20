@@ -3,8 +3,11 @@ import * as status from 'http-status';
 import { getUserNameFromBody } from '../utils';
 import { service } from './service';
 import { RequestHandler } from 'express';
-import { Socket } from 'socket.io';
+import { Socket, Server } from 'socket.io';
 import { socketEvents } from '../constants/socketEvents';
+import { User } from '../models';
+
+const onlineUsers: User[] = [];
 
 const addUser: RequestHandler = async (req, res, next) => {
   const userName = getUserNameFromBody(req.body);
@@ -21,15 +24,22 @@ const addUser: RequestHandler = async (req, res, next) => {
   res.status(status.OK).json(result);
 };
 
-const onUserLogged = async (socket: Socket) => {
+const onUserLogged = async (socket: Socket, io: Server) => {
   const user = await service.getUserByUserId(socket.handshake.query.userId);
 
   if (user) {
-    socket.broadcast.emit(socketEvents.loggedUser, user);
+    io.emit(socketEvents.loggedUser, user);
+    onlineUsers.push(user);
+    socket.emit(socketEvents.onConnected, {users: onlineUsers});
   }
+};
+
+const userExist = async (id: string): Promise<boolean> => {
+  return await service.getUserByUserId(id) !== null;
 };
 
 export const userController = {
   addUser,
   onUserLogged,
+  userExist,
 };

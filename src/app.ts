@@ -6,7 +6,7 @@ import httpErrors from 'http-errors-express';
 import * as socketIO from 'socket.io';
 import { routes, server, socketEvents } from './constants';
 import { conversationController } from './conversation';
-import { service, userController } from './users';
+import { userController } from './users';
 const app = express();
 const io = socketIO(8080);
 
@@ -18,14 +18,17 @@ app.post(routes.addUser, userController.addUser);
 
 io.use(async (socket, next) => {
   const { userId } = socket.handshake.query;
-  if (await service.userIdExist(userId)) {
+  if (userId && await userController.userExist(userId)) {
     return next();
   }
 });
 
-io.on(socketEvents.connection, userController.onUserLogged);
-
-io.on(socketEvents.addMessage, conversationController.addMessage);
+io.on(socketEvents.connection, (socket: socketIO.Socket) => {
+  userController.onUserLogged(socket, io);
+  socket.on(socketEvents.sendMessage, (data: any) => {
+    conversationController.addMessage(socket, io, data);
+  });
+});
 
 app.use(httpErrors());
 
