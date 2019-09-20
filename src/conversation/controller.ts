@@ -14,5 +14,5 @@ const onSendMessage = async (socket: Socket, io: Server, data: any) => {
 };
 
 export const conversationController = {
-  addMessage: onSendMessage,
+  onSendMessage,
 };

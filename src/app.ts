@@ -26,7 +26,7 @@ io.use(async (socket, next) => {
 io.on(socketEvents.connection, (socket: socketIO.Socket) => {
   userController.onUserLogged(socket, io);
   socket.on(socketEvents.sendMessage, (data: any) => {
-    conversationController.addMessage(socket, io, data);
+    conversationController.onSendMessage(socket, io, data);
   });
 });
 
